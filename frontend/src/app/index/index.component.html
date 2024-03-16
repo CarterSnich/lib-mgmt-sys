@@ -1,0 +1,70 @@
+<style>
+  #component {
+    background-image: url(assets/ellipses.svg), url(assets/Ellipse\ 2.svg),
+      url(assets/triangles.svg);
+    background-repeat: no-repeat;
+    background-size: contain, 30vw, 30vw;
+    background-position: top left, top right, bottom right;
+  }
+</style>
+
+<div
+  id="component"
+  class="vh-100 d-flex justify-content-center align-items-center"
+>
+  <form
+    class="d-flex flex-column gap-5"
+    [formGroup]="loginForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <h1 class="text-center">LIBRARY MANAGEMENT <br />SYSTEM</h1>
+
+    <div class="d-flex flex-column gap-3" data-bs-theme="dark">
+      <div *ngIf="errors?.errors?.email" class="alert alert-danger">
+        {{ errors?.errors?.email }}
+      </div>
+      <div *ngIf="errors?.errors?.password" class="alert alert-danger">
+        {{ errors?.errors?.password }}
+      </div>
+      <div *ngIf="errors?.message" class="alert alert-danger">
+        {{ errors?.message }}
+      </div>
+      <input
+        type="text"
+        formControlName="email"
+        class="form-control form-control-lg rounded-1 border border-dark bg-secondary text-bg-secondary"
+        placeholder="Email"
+      />
+      <input
+        type="password"
+        formControlName="password"
+        class="form-control form-control-lg rounded-1 border border-dark bg-secondary text-bg-secondary"
+        placeholder="Password"
+      />
+    </div>
+
+    <div class="row">
+      <div class="col d-flex justify-content-center align-items-center">
+        <select
+          class="form-select-sm bg-secondary-subtle rounded-1 shadow-sm border-0 text-dark"
+        >
+          <option value="">Admin</option>
+          <option value="">Librarian</option>
+          <option value="">Librarian Aide</option>
+          <option value="">Borrowers</option>
+        </select>
+      </div>
+
+      <div class="col d-flex justify-content-center align-items-center">
+        <a href="#" class="btn btn-light">Forgot Password?</a>
+      </div>
+    </div>
+
+    <div class="m-auto d-grid gap-3">
+      <button type="submit" class="btn btn-primary rounded-1 px-5">
+        LOGIN
+      </button>
+      <a href="#" class="btn btn-primary rounded-1 px-5">SIGN UP</a>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,167 @@
+<style>
+  #top-nav {
+    background-color: #0148c6;
+  }
+
+  #side-nav {
+    background-color: #021728;
+    min-width: 300px;
+    max-width: 300px;
+  }
+
+  #toolbar {
+    background-color: #334360;
+  }
+
+  #book-links {
+    background-color: #021728;
+  }
+
+  #book-links > a.active {
+    background-color: #367eb8;
+  }
+</style>
+
+<div id="component" class="vh-100 d-flex flex-column">
+  <nav id="top-nav" class="navbar">
+    <div class="container-fluid">
+      <a
+        class="navbar-brand text-light d-flex align-items-center gap-2"
+        href="#"
+      >
+        <img src="assets/library 1.png" alt="Logo" height="36" />
+        <span class="fw-bold">Library Management System</span>
+      </a>
+    </div>
+  </nav>
+  <div class="flex-grow-1 d-flex">
+    <nav id="side-nav" class="h-100 text-light p-4 border-end border-white">
+      <div class="row mb-3">
+        <div class="col-4">
+          <img src="assets/Profile.png" class="img-fluid" />
+        </div>
+        <div class="col-8 d-flex flex-column justify-content-around">
+          <span>{{ UserProfile.fullname }}</span>
+          <span>{{ UserProfile.email }}</span>
+        </div>
+        <div class="col-4 d-flex justify-content-center">
+          <button class="btn btn-sm btn-warning">Details</button>
+        </div>
+      </div>
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a
+            class="nav-link text-light d-flex align-items-center gap-3"
+            aria-current="page"
+            href="#"
+          >
+            <img src="assets/Dashboard - Pic.png" height="32" width="32" />
+            Dashboard
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link text-light d-flex align-items-center gap-3"
+            href="management"
+          >
+            <img src="assets/Book - pic.png" height="32" width="32" />
+            Books
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link text-light d-flex align-items-center gap-3"
+            href="#"
+          >
+            <img src="assets/User - Pic.png" height="32" width="32" />
+            Users
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link text-light d-flex align-items-center gap-3"
+            href="#"
+          >
+            <img src="assets/Issued - pic.png" height="32" width="32" />
+            Issued
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link text-light d-flex align-items-center gap-3"
+            href="#"
+          >
+            <img src="assets/Returned - Pic.png" height="32" width="32" />
+            Returned
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link text-light d-flex align-items-center gap-3"
+            href="#"
+          >
+            <img src="assets/home 13.png" height="32" width="32" />
+            Not-Returned
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <main class="align-self-start d-flex flex-wrap p-5 align-items-start gap-5">
+      <a
+        href="management"
+        class="card text-bg-success shadow text-decoration-none border-0 rounded-0"
+        style="min-width: 18rem"
+      >
+        <div class="card-body shadow-sm d-flex align-items-center gap-3 p-0">
+          <img src="assets/book (3) 1.png" height="128" />
+          <h5 class="card-title fs-2">Books</h5>
+        </div>
+        <div class="card-footer border-0 text-center">More info</div>
+      </a>
+      <a
+        href="#"
+        class="card text-bg-danger shadow text-decoration-none border-0 rounded-0"
+        style="min-width: 18rem"
+      >
+        <div class="card-body shadow-sm d-flex align-items-center gap-3 p-0">
+          <img src="assets/Users-Picture.png" height="128" />
+          <h5 class="card-title fs-2">Users</h5>
+        </div>
+        <div class="card-footer border-0 text-center">More info</div>
+      </a>
+      <a
+        href="#"
+        class="card bg-warning text-light shadow text-decoration-none border-0 rounded-0"
+        style="min-width: 18rem"
+      >
+        <div class="card-body shadow-sm d-flex align-items-center gap-3 p-0">
+          <img src="assets/book (6) 1.png" height="128" />
+          <h5 class="card-title fs-2">Issued</h5>
+        </div>
+        <div class="card-footer border-0 text-center">More info</div>
+      </a>
+      <a
+        href="#"
+        class="card text-light shadow text-decoration-none border-0 rounded-0"
+        style="min-width: 18rem; background-color: #dc532d"
+      >
+        <div class="card-body shadow-sm d-flex align-items-center gap-3 p-0">
+          <img src="assets/approved 1.png" height="128" />
+          <h5 class="card-title fs-2">Returned</h5>
+        </div>
+        <div class="card-footer border-0 text-center">More info</div>
+      </a>
+      <a
+        href="#"
+        class="card text-light shadow text-decoration-none border-0 rounded-0"
+        style="min-width: 18rem; background-color: #00c0ef"
+      >
+        <div class="card-body shadow-sm d-flex align-items-center gap-3 p-0">
+          <img src="assets/Not-Returned Picture.png" height="128" />
+          <h5 class="card-title fs-2 text-center">Not<br />Returned</h5>
+        </div>
+        <div class="card-footer border-0 text-center">More info</div>
+      </a>
+    </main>
+  </div>
+</div>
