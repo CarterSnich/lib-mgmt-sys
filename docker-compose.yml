@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "4200:4200"
+
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mysql
+    environment:
+      DB_CONNECTION: mysql
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: libsysmgmt
+      DB_USERNAME: root
+      DB_PASSWORD:
+
+  mysql:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD:
+      MYSQL_DATABASE: libsysmgmt
+      MYSQL_USER: root
+      MYSQL_PASSWORD:
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
