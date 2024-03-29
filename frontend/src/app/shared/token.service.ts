@@ -4,8 +4,8 @@ import { Injectable } from '@angular/core';
 })
 export class TokenService {
   private issuer = {
-    login: 'http://127.0.0.1:8000/api/auth/login',
-    register: 'http://127.0.0.1:8000/api/auth/register',
+    login: `http://${import.meta.env['NG_APP_HOST_API']}/api/auth/login`,
+    register: `http://${import.meta.env['NG_APP_HOST_API']}/api/auth/register`,
   };
   constructor() {}
   handleData(token: any) {
@@ -20,9 +20,7 @@ export class TokenService {
     if (token) {
       const payload = this.payload(token);
       if (payload) {
-        return Object.values(this.issuer).indexOf(payload.iss) > -1
-          ? true
-          : false;
+        return Object.values(this.issuer).indexOf(payload.iss) > -1;
       }
     } else {
       return false;

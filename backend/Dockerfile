@@ -6,9 +6,11 @@ WORKDIR /var/www/html
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
-    mysql-client \
     git \
     unzip
+
+# PHP extensions
+RUN docker-php-ext-install pdo pdo_mysql
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -17,16 +19,10 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 COPY composer.json composer.lock ./
 
 # Install PHP dependencies
-RUN composer install --no-scripts --no-autoloader
+RUN composer install --no-plugins --no-scripts
 
 # Copy the rest of the application code
 COPY . .
 
-# Run Laravel migrations and seed the database
-RUN php artisan migrate:fresh --seed
-
 # Expose the port on which Laravel serves the application
 EXPOSE 8000
-
-# Start Laravel development server
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]

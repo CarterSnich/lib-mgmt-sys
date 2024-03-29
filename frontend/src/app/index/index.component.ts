@@ -16,6 +16,7 @@ import { AuthService } from './../shared/auth.service';
 export class IndexComponent implements OnInit {
   loginForm: FormGroup;
   errors: any = null;
+  asd = import.meta.env['NG_APP_HOST_API'];
   constructor(
     public router: Router,
     public fb: FormBuilder,

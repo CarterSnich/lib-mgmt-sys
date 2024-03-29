@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class CORS
+class Cors
 {
     /**
      * Handle an incoming request.
@@ -15,6 +15,7 @@ class CORS
      */
     public function handle(Request $request, Closure $next): Response
     {
+        header('Access-Control-Allow-Methods: *');
         header('Acess-Control-Allow-Origin: *');
         header('Acess-Control-Allow-Origin: Content-type, X-Auth-Token, Authorization, Origin');
         return $next($request);

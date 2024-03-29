@@ -166,30 +166,50 @@
 
           <div class="d-flex flex-grow-1 pt-4">
             <div class="w-50 p-5 pt-3">
-              <form class="d-flex flex-column gap-3">
+              <form
+                class="d-flex flex-column gap-3"
+                [formGroup]="addBookForm"
+                (ngSubmit)="onSubmit()"
+              >
                 <div class="row">
                   <div class="col-4">Book Name</div>
                   <div class="col-8">
-                    <input type="text" class="form-control rounded-0" />
+                    <input
+                      type="text"
+                      class="form-control rounded-0"
+                      formControlName="book_name"
+                    />
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-4">Book Status</div>
                   <div class="col-8">
-                    <input type="text" class="form-control rounded-0" />
+                    <input
+                      type="text"
+                      class="form-control rounded-0"
+                      formControlName="book_status"
+                    />
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-4">Book ID</div>
                   <div class="col-8">
-                    <input type="text" class="form-control rounded-0" />
+                    <input
+                      type="text"
+                      class="form-control rounded-0"
+                      formControlName="book_id"
+                    />
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-4"></div>
                   <div class="col-8 d-flex gap-3">
-                    <button class="flex-fill btn btn-primary">Add</button>
-                    <button class="flex-fill btn btn-primary">Cancel</button>
+                    <button type="submit" class="flex-fill btn btn-primary">
+                      Add
+                    </button>
+                    <button type="button" class="flex-fill btn btn-primary">
+                      Cancel
+                    </button>
                   </div>
                 </div>
               </form>
@@ -217,13 +237,60 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>5521575</td>
-                    <td>Boom Tarat</td>
-                    <td>Boom Tarat</td>
+                  <tr *ngFor="let book of books">
                     <td>
-                      <button class="btn btn-sm btn-warning">Edit</button>
-                      <button class="btn btn-sm btn-danger">Del</button>
+                      <input
+                        class="form-control"
+                        type="text"
+                        *ngIf="bookEditable == book.book_id; else bid"
+                        [(ngModel)]="editBookId"
+                      />
+                      <ng-template #bid>{{ book.book_id }}</ng-template>
+                    </td>
+                    <td>
+                      <input
+                        class="form-control"
+                        type="text"
+                        *ngIf="bookEditable == book.book_id; else bname"
+                        [(ngModel)]="editBookName"
+                      />
+                      <ng-template #bname>{{ book.book_name }}</ng-template>
+                    </td>
+                    <td>
+                      <input
+                        class="form-control"
+                        type="text"
+                        *ngIf="bookEditable == book.book_id; else bstatus"
+                        [(ngModel)]="editBookStatus"
+                      />
+                      <ng-template #bstatus>
+                        {{ book.book_status }}
+                      </ng-template>
+                    </td>
+                    <td>
+                      <button
+                        type="submit"
+                        class="btn btn-sm btn-warning"
+                        (click)="updateBook(book.book_id)"
+                        *ngIf="bookEditable == book.book_id; else buttons"
+                      >
+                        Done
+                      </button>
+                      <ng-template #buttons>
+                        <button
+                          class="btn btn-sm btn-warning me-1"
+                          (click)="setBookEditable(book)"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          type="button"
+                          class="btn btn-sm btn-danger"
+                          (click)="deleteBook(book.book_id)"
+                        >
+                          Del
+                        </button>
+                      </ng-template>
                     </td>
                   </tr>
                 </tbody>
