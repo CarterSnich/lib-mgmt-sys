@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
         Book::factory()->create([
             'book_id' => '49841531',
             'book_name' => 'The Book',
-            'book_status' => 'Returned'
+            'book_price' => 10000
         ]);
     }
 }

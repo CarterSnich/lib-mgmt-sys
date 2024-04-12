@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('book_id');
             $table->string('book_name');
-            $table->string('book_status');
+            $table->unsignedBigInteger('book_price');
             $table->timestamps();
         });
     }

@@ -19,12 +19,12 @@ export class ManagementComponent {
   addBookForm = this.formBuilder.group<Book>({
     book_id: '',
     book_name: '',
-    book_status: '',
+    book_price: 0,
   });
 
   editBookId = '';
   editBookName = '';
-  editBookStatus = '';
+  editBookPrice = 0;
 
   constructor(
     private bookService: BookService,
@@ -48,14 +48,14 @@ export class ManagementComponent {
     this.bookEditable = book.book_id;
     this.editBookId = book.book_id;
     this.editBookName = book.book_name;
-    this.editBookStatus = book.book_status;
+    this.editBookPrice = book.book_price;
   }
 
   updateBook(book_id: string) {
     this.bookService.updateBook(book_id, {
       book_id: this.editBookId,
       book_name: this.editBookName,
-      book_status: this.editBookStatus,
+      book_price: this.editBookPrice,
     });
     this.bookEditable = '';
     this.getBooks();

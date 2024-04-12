@@ -53,7 +53,7 @@
           <a
             class="nav-link text-light d-flex align-items-center gap-3"
             aria-current="page"
-            href="#"
+            href="dashboard"
           >
             <img src="assets/Dashboard - Pic.png" height="32" width="32" />
             Dashboard
@@ -62,7 +62,7 @@
         <li class="nav-item">
           <a
             class="nav-link text-light d-flex align-items-center gap-3"
-            href="#"
+            href="management"
           >
             <img src="assets/Book - pic.png" height="32" width="32" />
             Books
@@ -71,7 +71,7 @@
         <li class="nav-item">
           <a
             class="nav-link text-light d-flex align-items-center gap-3"
-            href="#"
+            href="users"
           >
             <img src="assets/User - Pic.png" height="32" width="32" />
             Users
@@ -80,7 +80,7 @@
         <li class="nav-item">
           <a
             class="nav-link text-light d-flex align-items-center gap-3"
-            href="#"
+            href="books?status=issued"
           >
             <img src="assets/Issued - pic.png" height="32" width="32" />
             Issued
@@ -89,7 +89,7 @@
         <li class="nav-item">
           <a
             class="nav-link text-light d-flex align-items-center gap-3"
-            href="#"
+            href="books?status=returned"
           >
             <img src="assets/Returned - Pic.png" height="32" width="32" />
             Returned
@@ -98,7 +98,7 @@
         <li class="nav-item">
           <a
             class="nav-link text-light d-flex align-items-center gap-3"
-            href="#"
+            href="books?status=not-returned"
           >
             <img src="assets/home 13.png" height="32" width="32" />
             Not-Returned
@@ -135,33 +135,11 @@
       </nav>
       <main class="d-grid w-100 flex-grow-1 p-2">
         <div class="d-flex flex-column border rounded">
-          <nav id="book-links" class="nav rounded-top px-3 py-1">
-            <a class="nav-link flex-grow-1 text-light text-center" href="#"
-              >ALL BOOKS</a
-            >
-            <a class="nav-link flex-grow-1 text-light text-center" href="#"
-              >AUTHOR</a
-            >
-            <a class="nav-link flex-grow-1 text-light text-center" href="#"
-              >PUBLISHER</a
-            >
-            <a class="nav-link flex-grow-1 text-light text-center" href="#"
-              >GENRES</a
-            >
-            <a class="nav-link flex-grow-1 text-light text-center" href="#"
-              >SERIES</a
-            >
-            <a class="nav-link flex-grow-1 text-light text-center" href="#"
-              >TAGS</a
-            >
-            <a class="nav-link flex-grow-1 text-light text-center" href="#"
-              >PUBLISH YEAR</a
-            >
-            <a
-              class="nav-link flex-grow-1 text-light text-center active"
-              href="#"
-              >ADD & DELETE</a
-            >
+          <nav
+            id="book-links"
+            class="nav justify-content-start rounded-top px-3 py-1"
+          >
+            <a class="nav-link text-light text-center" href="#">ALL BOOKS</a>
           </nav>
 
           <div class="d-flex flex-grow-1 pt-4">
@@ -182,12 +160,12 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-4">Book Status</div>
+                  <div class="col-4">Book Price</div>
                   <div class="col-8">
                     <input
                       type="text"
                       class="form-control rounded-0"
-                      formControlName="book_status"
+                      formControlName="book_price"
                     />
                   </div>
                 </div>
@@ -232,7 +210,7 @@
                   <tr>
                     <th scope="col">Book ID</th>
                     <th scope="col">Book Name</th>
-                    <th scope="col">Status</th>
+                    <th scope="col">Price</th>
                     <th scope="col"></th>
                   </tr>
                 </thead>
@@ -260,11 +238,11 @@
                       <input
                         class="form-control"
                         type="text"
-                        *ngIf="bookEditable == book.book_id; else bstatus"
-                        [(ngModel)]="editBookStatus"
+                        *ngIf="bookEditable == book.book_id; else bprice"
+                        [(ngModel)]="editBookPrice"
                       />
-                      <ng-template #bstatus>
-                        {{ book.book_status }}
+                      <ng-template #bprice>
+                        Php {{ book.book_price }}
                       </ng-template>
                     </td>
                     <td>
