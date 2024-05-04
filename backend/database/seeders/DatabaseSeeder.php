@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Illuminate\Support\Str;
 use App\Models\Book;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -23,10 +24,26 @@ class DatabaseSeeder extends Seeder
             'fullname' => 'Administrator'
         ]);
 
-        Book::factory()->create([
-            'book_id' => '49841531',
-            'book_name' => 'The Book',
-            'book_price' => 10000
-        ]);
+
+        for ($i = 0; $i < 10000; $i++) {
+            $issuedDate = fake()->date();
+            $dueDate = null;
+            $returnedDate = null;
+
+            if (fake()->boolean()) {
+                $dueDate = fake()->date();
+                $returnedDate = fake()->date(max: $dueDate);
+            }
+
+            Book::factory()->create([
+                'name' => Str::title(fake()->words(true)),
+                'isbn' => fake()->isbn13(),
+                'author' => fake()->name(),
+                'price' => fake()->numberBetween(100, 10000),
+                'issued_date' => $issuedDate,
+                'due_date' => $dueDate,
+                'returned_date' => $returnedDate
+            ]);
+        }
     }
 }
