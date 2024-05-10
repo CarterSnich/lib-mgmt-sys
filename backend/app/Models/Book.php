@@ -14,6 +14,7 @@ class Book extends Model
         'isbn',
         'author',
         'price',
+        'quantity',
         'issued_date',
         'due_date',
         'returned_date'

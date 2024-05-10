@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ReturnedComponent } from './returned.component';
+import { AdminSideLinksComponent } from './admin-side-links.component';
 
-describe('ReturnedComponent', () => {
-  let component: ReturnedComponent;
-  let fixture: ComponentFixture<ReturnedComponent>;
+describe('AdminSideLinksComponent', () => {
+  let component: AdminSideLinksComponent;
+  let fixture: ComponentFixture<AdminSideLinksComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ReturnedComponent]
+      imports: [AdminSideLinksComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(ReturnedComponent);
+    fixture = TestBed.createComponent(AdminSideLinksComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

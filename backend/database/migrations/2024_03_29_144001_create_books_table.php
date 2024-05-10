@@ -17,12 +17,14 @@ return new class extends Migration
             $table->string('name');
             $table->string('isbn')->unique();
             $table->string('author');
+            $table->year('year');
             $table->unsignedBigInteger('price');
+            $table->unsignedBigInteger('quantity');
             $table->date('issued_date')->nullable();
             $table->date('due_date')->nullable();
             $table->date('returned_date')->nullable();
 
-            $table->$table->timestamps();
+            $table->timestamps();
         });
     }
 

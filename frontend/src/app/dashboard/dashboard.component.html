@@ -27,7 +27,7 @@
     <div class="container-fluid">
       <a
         class="navbar-brand text-light d-flex align-items-center gap-2"
-        href="#"
+        routerLink="#"
       >
         <img src="assets/library 1.png" alt="Logo" height="36" />
         <span class="fw-bold">Library Management System</span>
@@ -41,74 +41,20 @@
           <img src="assets/Profile.png" class="img-fluid" />
         </div>
         <div class="col-8 d-flex flex-column justify-content-around">
-          <span>{{ UserProfile.fullname }}</span>
-          <span>{{ UserProfile.email }}</span>
+          <span>{{ user?.fullname }}</span>
+          <span>{{ user?.email }}</span>
         </div>
       </div>
       <div class="mb-3">
-        <a href="edit-profile" class="btn btn-sm btn-warning">Edit Profile</a>
+        <a routerLink="edit-profile" class="btn btn-sm btn-warning">
+          Edit Profile
+        </a>
       </div>
-      <ul class="nav flex-column">
-        <li class="nav-item">
-          <a
-            class="nav-link text-light d-flex align-items-center gap-3"
-            aria-current="page"
-            href="dashboard"
-          >
-            <img src="assets/Dashboard - Pic.png" height="32" width="32" />
-            Dashboard
-          </a>
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link text-light d-flex align-items-center gap-3"
-            href="management"
-          >
-            <img src="assets/Book - pic.png" height="32" width="32" />
-            Books
-          </a>
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link text-light d-flex align-items-center gap-3"
-            href="users"
-          >
-            <img src="assets/User - Pic.png" height="32" width="32" />
-            Users
-          </a>
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link text-light d-flex align-items-center gap-3"
-            href="books?tab=issued"
-          >
-            <img src="assets/Issued - pic.png" height="32" width="32" />
-            Issued
-          </a>
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link text-light d-flex align-items-center gap-3"
-            href="returned"
-          >
-            <img src="assets/Returned - Pic.png" height="32" width="32" />
-            Returned
-          </a>
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link text-light d-flex align-items-center gap-3"
-            href="not-returned"
-          >
-            <img src="assets/home 13.png" height="32" width="32" />
-            Not-Returned
-          </a>
-        </li>
-      </ul>
+      <app-admin-side-links />
     </nav>
     <main class="align-self-start d-flex flex-wrap p-5 align-items-start gap-5">
       <a
-        href="management"
+        routerLink="/management"
         class="card text-bg-success shadow text-decoration-none border-0 rounded-0"
         style="min-width: 18rem"
       >
@@ -119,7 +65,7 @@
         <div class="card-footer border-0 text-center">More info</div>
       </a>
       <a
-        href="users"
+        routerLink="/users"
         class="card text-bg-danger shadow text-decoration-none border-0 rounded-0"
         style="min-width: 18rem"
       >
@@ -130,18 +76,7 @@
         <div class="card-footer border-0 text-center">More info</div>
       </a>
       <a
-        href="books?tab=issued"
-        class="card bg-warning text-light shadow text-decoration-none border-0 rounded-0"
-        style="min-width: 18rem"
-      >
-        <div class="card-body shadow-sm d-flex align-items-center gap-3 p-0">
-          <img src="assets/book (6) 1.png" height="128" />
-          <h5 class="card-title fs-2">Issued</h5>
-        </div>
-        <div class="card-footer border-0 text-center">More info</div>
-      </a>
-      <a
-        href="books?tab=returned"
+        routerLink="/books?tab=returned"
         class="card text-light shadow text-decoration-none border-0 rounded-0"
         style="min-width: 18rem; background-color: #dc532d"
       >
@@ -152,7 +87,7 @@
         <div class="card-footer border-0 text-center">More info</div>
       </a>
       <a
-        href="books?tab=not-returned"
+        routerLink="/books?tab=not-returned"
         class="card text-light shadow text-decoration-none border-0 rounded-0"
         style="min-width: 18rem; background-color: #00c0ef"
       >

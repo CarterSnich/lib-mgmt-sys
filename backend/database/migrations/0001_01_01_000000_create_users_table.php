@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('password');
             $table->string('fullname');
+            $table->enum('type', ['Administrator', 'Librarian', 'Borrower']);
             $table->rememberToken();
             $table->timestamps();
         });

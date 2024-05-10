@@ -1,0 +1,135 @@
+<style>
+  #top-nav {
+    background-color: #0148c6;
+  }
+
+  #side-nav {
+    background-color: #021728;
+    min-width: 300px;
+    max-width: 300px;
+  }
+
+  #toolbar {
+    background-color: #334360;
+  }
+
+  #book-links {
+    background-color: #021728;
+  }
+
+  #book-links > a.active {
+    background-color: #367eb8;
+  }
+</style>
+
+<div id="component" class="vh-100 d-flex flex-column overflow-hidden">
+  <nav id="top-nav" class="navbar">
+    <div class="container-fluid">
+      <a
+        class="navbar-brand text-light d-flex align-items-center gap-2"
+        href="#"
+      >
+        <img src="assets/book (3) 2.png" alt="Logo" height="36" />
+        <span class="fw-bold">Books</span>
+      </a>
+    </div>
+  </nav>
+  <div class="flex-grow-1 d-flex overflow-hidden">
+    <nav id="side-nav" class="h-100 text-light p-4 border-end border-white">
+      <div class="row mb-2">
+        <div class="col-4">
+          <img src="assets/Profile.png" class="img-fluid" />
+        </div>
+        <div class="col-8 d-flex flex-column justify-content-around">
+          <span>{{ user?.fullname }}</span>
+          <span>{{ user?.email }}</span>
+        </div>
+      </div>
+      <div class="mb-3">
+        <a routerLink="edit-profile" class="btn btn-sm btn-warning"
+          >Edit Profile</a
+        >
+      </div>
+      <app-admin-side-links />
+    </nav>
+    <div class="d-flex flex-column flex-grow-1 overflow-hidden">
+      <main class="d-grid w-100 flex-grow-1 p-2 overflow-hidden">
+        <div class="w-100 border rounded d-flex flex-column overflow-hidden">
+          <div class="d-flex justify-content-between bg-primary p-2">
+            <input
+              type="search"
+              class="form-control form-control-sm w-auto"
+              placeholder="Search"
+            />
+          </div>
+          <div class="flex-grow-1 overflow-auto">
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">ISBN</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">User</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Qty</th>
+                    <th scope="col" *ngIf="!isReturned === true"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let bb of borrowedBooks">
+                    <td>{{ bb.book.isbn }}</td>
+                    <td>{{ bb.book.name }}</td>
+                    <td>{{ bb.user.fullname }}</td>
+                    <td>{{ bb.total }}</td>
+                    <td>{{ bb.quantity }}</td>
+                    <td *ngIf="!isReturned === true">
+                      <button
+                        class="btn btn-sm btn-warning"
+                        (click)="returnBorrow(bb)"
+                      >
+                        Return
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="d-flex justify-content-end p-1 bg-primary">
+            <div class="d-flex gap-3 text-light align-items-center">
+              <span class="text-nowrap"> Items per page: </span>
+              <select
+                class="form-select form-select-sm"
+                (input)="pageSelect($event)"
+              >
+                <option [value]="c" *ngFor="let c of [20, 50, 100, 500, 1000]">
+                  {{ c }}
+                </option>
+              </select>
+              <span class="text-nowrap">
+                {{ pagination.from }} - {{ pagination.to }} of
+                {{ pagination.total }}
+              </span>
+              <div class="btn-group">
+                <button
+                  class="btn btn-sm btn-outline-light"
+                  (click)="prevPage()"
+                  [disabled]="pagination.current_page <= 1"
+                >
+                  &laquo;
+                </button>
+                <button
+                  class="btn btn-sm btn-outline-light"
+                  (click)="nextPage()"
+                  [disabled]="pagination.current_page >= pagination.last_page"
+                >
+                  &raquo;
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</div>

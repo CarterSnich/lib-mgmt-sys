@@ -1,0 +1,208 @@
+<style>
+  #top-nav {
+    background-color: #0148c6;
+  }
+
+  #side-nav {
+    background-color: #021728;
+    min-width: 300px;
+    max-width: 300px;
+  }
+
+  #toolbar {
+    background-color: #334360;
+  }
+
+  #book-links {
+    background-color: #021728;
+  }
+
+  #book-links > a.active {
+    background-color: #367eb8;
+  }
+</style>
+
+<div id="component" class="vh-100 d-flex flex-column overflow-hidden">
+  <nav id="top-nav" class="navbar">
+    <div class="container-fluid">
+      <a
+        class="navbar-brand text-light d-flex align-items-center gap-2"
+        routerLink="#"
+      >
+        <img src="assets/library 1.png" alt="Logo" height="36" />
+        <span class="fw-bold">Library Management System</span>
+      </a>
+    </div>
+  </nav>
+  <div class="flex-grow-1 d-flex overflow-hidden">
+    <nav id="side-nav" class="h-100 text-light p-4 border-end border-white">
+      <div class="row mb-2">
+        <div class="col-4">
+          <img src="assets/Profile.png" class="img-fluid" />
+        </div>
+        <div class="col-8 d-flex flex-column justify-content-around">
+          <span>{{ user?.fullname }}</span>
+          <span>{{ user?.email }}</span>
+        </div>
+      </div>
+      <div class="mb-3">
+        <a routerLink="edit-profile" class="btn btn-sm btn-warning">
+          Edit Profile
+        </a>
+      </div>
+      <app-borrower-side-links />
+    </nav>
+    <main class="flex-grow-1 d-flex flex-column overflow-auto">
+      <div
+        class="sticky-top w-100 p-3 mb-3 d-flex justify-content-between bg-white"
+      >
+        <div>
+          <input
+            type="search"
+            class="form-control form-control-sm"
+            placeholder="Search"
+          />
+        </div>
+        <div>
+          <div class="d-flex gap-3 align-items-center">
+            <span class="text-nowrap">Items per page:</span>
+            <select
+              class="form-select form-select-sm"
+              (input)="pageSelect($event)"
+            >
+              <option value="20">20</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+              <option value="500">500</option>
+              <option value="1000">1000</option>
+            </select>
+
+            <span class="text-nowrap">
+              {{ pagination.from }} - {{ pagination.to }} of
+              {{ pagination.total }}
+            </span>
+            <div class="btn-group">
+              <button
+                class="btn btn-sm btn-outline-secondary"
+                (click)="prevPage()"
+                [disabled]="pagination.current_page <= 1"
+              >
+                &laquo;
+              </button>
+              <button
+                class="btn btn-sm btn-outline-secondary"
+                (click)="nextPage()"
+                [disabled]="pagination.current_page >= pagination.last_page"
+              >
+                &raquo;
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        id="error-message"
+        class="flex-grow-1 d-grid justify-content-center align-items-center d-none"
+      >
+        <span class="fs-1 text-danger">Failed to fetch books</span>
+      </div>
+
+      <div class="mx-3 mb-3 row row-cols-1 row-cols-md-4 g-4">
+        <div class="col" *ngFor="let book of books">
+          <div
+            class="card h-100"
+            (click)="clickBook(book)"
+            style="cursor: pointer"
+            data-bs-toggle="modal"
+            data-bs-target="#borrow-modal"
+          >
+            <img
+              src="assets/book-sample.jpg"
+              class="card-img-top img-fluid mx-auto"
+              style="max-width: 8rem"
+            />
+            <div class="card-body">
+              <p class="card-text text-small d-flex flex-column">
+                <small>{{ book.name }}</small>
+                <small>{{ book.author }}</small>
+                <small>{{ book.year }}</small>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- borrow modal -->
+<div
+  class="modal fade"
+  id="borrow-modal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <form
+    class="modal-dialog"
+    [formGroup]="bookBorrowForm"
+    (submit)="submitBorrowBook()"
+  >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="borrow-modal">Borrow book</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body d-flex flex-column gap-3">
+        <img
+          src="assets/book-sample.jpg"
+          class="img-fluid mx-auto"
+          style="width: 18rem"
+        />
+
+        <div class="row">
+          <div class="col-3">Title:</div>
+          <div class="col-9">
+            <span>{{ bookToBorrow.name }}</span>
+          </div>
+          <div class="col-3">Author:</div>
+          <div class="col-9">
+            <span>{{ bookToBorrow.author }}</span>
+          </div>
+          <div class="col-3">Year:</div>
+          <div class="col-9">
+            <span>{{ bookToBorrow.year }}</span>
+          </div>
+          <div class="col-3">Price:</div>
+          <div class="col-9">
+            <span>Php {{ bookToBorrow.price }}</span>
+          </div>
+        </div>
+
+        <div class="input-group flex-nowrap">
+          <span class="input-group-text">Quantity: </span>
+          <input
+            type="number"
+            class="form-control"
+            formControlName="quantity"
+          />
+          <span class="input-group-text">/ {{ bookToBorrow.quantity }} </span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">
+          Borrow
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import Book from './book';
+import Pagination from './pagination';
 
 @Injectable({
   providedIn: 'root',
@@ -9,23 +10,41 @@ import Book from './book';
 export class BookService {
   constructor(private http: HttpClient) {}
 
-  getBooks(): Observable<Book[]> {
-    return this.http.get<Book[]>('http://localhost:8000/api/books');
+  getBooks(
+    page: number,
+    query?: string,
+    perPage?: number
+  ): Observable<Pagination> {
+    let url = `http://localhost:8000/api/books?page=${page}`;
+
+    if (query) url = `${url}&query=${query}`;
+    if (perPage) url = `${url}&perPage=${perPage}`;
+
+    return this.http.get<Pagination>(url);
   }
 
   addBook(book: Book) {
-    this.http.post('http://localhost:8000/api/books/add', book).subscribe();
+    const url = 'http://localhost:8000/api/books/add';
+    return this.http.post(url, book);
   }
 
-  deleteBook(book_id: string) {
-    this.http
-      .delete(`http://localhost:8000/api/books/${book_id}/delete`)
-      .subscribe();
+  deleteBook(book: Book) {
+    const url = `http://localhost:8000/api/books/${book.id}/delete`;
+    return this.http.delete(url);
   }
 
-  updateBook(book_id: string, book: Book) {
-    this.http
-      .put(`http://localhost:8000/api/books/${book_id}/update`, book)
-      .subscribe();
+  updateBook(id: number, book: Book) {
+    const url = `http://localhost:8000/api/books/${id}/update`;
+    return this.http.put(url, book);
+  }
+
+  borrowBook(quantity: number, total: number, book: Book) {
+    const url = `http://localhost:8000/api/books/${book.id}/borrow`;
+    const body = {
+      quantity: quantity,
+      total: total,
+    };
+
+    return this.http.post(url, body);
   }
 }

@@ -22,7 +22,7 @@
   }
 </style>
 
-<div id="component" class="vh-100 d-flex flex-column">
+<div id="component" class="vh-100 d-flex flex-column overflow-hidden">
   <nav id="top-nav" class="navbar">
     <div class="container-fluid">
       <a
@@ -34,223 +34,111 @@
       </a>
     </div>
   </nav>
-  <div class="flex-grow-1 d-flex">
+  <div class="flex-grow-1 d-flex overflow-hidden">
     <nav id="side-nav" class="h-100 text-light p-4 border-end border-white">
-      <div class="row mb-3">
+      <div class="row mb-2">
         <div class="col-4">
           <img src="assets/Profile.png" class="img-fluid" />
         </div>
         <div class="col-8 d-flex flex-column justify-content-around">
-          <span>Admin 123</span>
-          <span>Admin</span>
-        </div>
-        <div class="col-4 d-flex justify-content-center">
-          <button class="btn btn-sm btn-warning">Details</button>
+          <span>{{ user?.fullname }}</span>
+          <span>{{ user?.email }}</span>
         </div>
       </div>
-      <ul class="nav flex-column">
-        <li class="nav-item">
-          <a
-            class="nav-link text-light d-flex align-items-center gap-3"
-            aria-current="page"
-            href="dashboard"
-          >
-            <img src="assets/Dashboard - Pic.png" height="32" width="32" />
-            Dashboard
-          </a>
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link text-light d-flex align-items-center gap-3"
-            href="management"
-          >
-            <img src="assets/Book - pic.png" height="32" width="32" />
-            Books
-          </a>
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link text-light d-flex align-items-center gap-3"
-            href="users"
-          >
-            <img src="assets/User - Pic.png" height="32" width="32" />
-            Users
-          </a>
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link text-light d-flex align-items-center gap-3"
-            href="issued"
-          >
-            <img src="assets/Issued - pic.png" height="32" width="32" />
-            Issued
-          </a>
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link text-light d-flex align-items-center gap-3"
-            href="returned"
-          >
-            <img src="assets/Returned - Pic.png" height="32" width="32" />
-            Returned
-          </a>
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link text-light d-flex align-items-center gap-3"
-            href="not-returned"
-          >
-            <img src="assets/home 13.png" height="32" width="32" />
-            Not-Returned
-          </a>
-        </li>
-      </ul>
+      <div class="mb-3">
+        <a routerLink="edit-profile" class="btn btn-sm btn-warning"
+          >Edit Profile</a
+        >
+      </div>
+      <app-admin-side-links />
     </nav>
-    <div class="d-flex flex-column flex-grow-1">
-      <nav id="toolbar" class="p-3 d-flex text-light">
-        <div class="row flex-fill">
-          <div class="col-3 d-flex align-items-center gap-3">
-            <label class="text-nowrap">Book name</label>
-            <select
-              class="d-block form-select form-select-sm form-inline rounded-0"
-            >
-              <option value=""></option>
-            </select>
-          </div>
-          <div class="col-3 d-flex align-items-center gap-3">
-            <label class="text-nowrap">Status</label>
-            <select class="form-select form-select-sm form-inline rounded-0">
-              <option value=""></option>
-            </select>
-          </div>
-          <div class="col-3"></div>
-          <div class="col-3 d-flex align-items-center gap-3">
+    <div class="d-flex flex-column flex-grow-1 overflow-hidden">
+      <main class="d-grid w-100 flex-grow-1 p-2 overflow-hidden">
+        <div class="w-100 border rounded d-flex flex-column overflow-hidden">
+          <div class="d-flex justify-content-between bg-primary p-2">
             <input
               type="search"
+              class="form-control form-control-sm w-auto"
               placeholder="Search"
-              class="form-control form-control-sm rounded-0"
+              [(ngModel)]="searchQuery"
             />
+
+            <button
+              class="btn btn-sm btn-light"
+              data-bs-toggle="modal"
+              data-bs-target="#add-book-modal"
+            >
+              Add book
+            </button>
           </div>
-        </div>
-      </nav>
-      <main class="d-grid w-100 flex-grow-1 p-2">
-        <div class="d-flex flex-column border rounded">
-          <nav
-            id="book-links"
-            class="nav justify-content-start rounded-top px-3 py-1"
-          >
-            <span class="text-light p-2" href="#">ALL BOOKS</span>
-          </nav>
-
-          <div class="d-flex flex-grow-1 pt-4">
-            <div class="w-50 p-5 pt-3">
-              <form
-                class="d-flex flex-column gap-3"
-                [formGroup]="addBookForm"
-                (ngSubmit)="onSubmit()"
-              >
-                <div class="row">
-                  <div class="col-4">Book Name</div>
-                  <div class="col-8">
-                    <input
-                      type="text"
-                      class="form-control rounded-0"
-                      formControlName="book_name"
-                    />
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-4">Book Price</div>
-                  <div class="col-8">
-                    <input
-                      type="text"
-                      class="form-control rounded-0"
-                      formControlName="book_price"
-                    />
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-4">Book ID</div>
-                  <div class="col-8">
-                    <input
-                      type="text"
-                      class="form-control rounded-0"
-                      formControlName="book_id"
-                    />
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-4"></div>
-                  <div class="col-8 d-flex gap-3">
-                    <button type="submit" class="flex-fill btn btn-primary">
-                      Add
-                    </button>
-                    <button type="button" class="flex-fill btn btn-primary">
-                      Cancel
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>
-
-            <div class="w-50 border">
+          <div class="flex-grow-1 overflow-auto">
+            <div class="table-responsive">
               <table class="table">
                 <thead>
                   <tr>
-                    <th colspan="4" class="bg-primary">
-                      <div class="d-flex">
-                        <input
-                          type="text"
-                          class="ms-auto bg-transparent border-0"
-                          placeholder="Search"
-                        />
-                      </div>
-                    </th>
-                  </tr>
-                  <tr>
-                    <th scope="col">Book ID</th>
-                    <th scope="col">Book Name</th>
+                    <th scope="col">ISBN</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">Year</th>
                     <th scope="col">Price</th>
+                    <th scope="col">Qty</th>
                     <th scope="col"></th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let book of books">
+                  <tr *ngFor="let book of books" [formGroup]="editBookForm">
+                    <td>{{ book.isbn }}</td>
                     <td>
                       <input
-                        class="form-control"
+                        class="form-control form-control-sm"
                         type="text"
-                        *ngIf="bookEditable == book.book_id; else bid"
-                        [(ngModel)]="editBookId"
+                        *ngIf="editableBook?.isbn == book.isbn; else bname"
+                        formControlName="name"
                       />
-                      <ng-template #bid>{{ book.book_id }}</ng-template>
+                      <ng-template #bname>{{ book.name }}</ng-template>
                     </td>
                     <td>
                       <input
-                        class="form-control"
+                        class="form-control form-control-sm"
                         type="text"
-                        *ngIf="bookEditable == book.book_id; else bname"
-                        [(ngModel)]="editBookName"
+                        *ngIf="editableBook?.isbn == book.isbn; else bauthor"
+                        formControlName="author"
                       />
-                      <ng-template #bname>{{ book.book_name }}</ng-template>
+                      <ng-template #bauthor>{{ book.author }}</ng-template>
                     </td>
                     <td>
                       <input
-                        class="form-control"
+                        class="form-control form-control-sm"
                         type="text"
-                        *ngIf="bookEditable == book.book_id; else bprice"
-                        [(ngModel)]="editBookPrice"
+                        *ngIf="editableBook?.isbn == book.isbn; else byear"
+                        formControlName="year"
                       />
-                      <ng-template #bprice>
-                        Php {{ book.book_price }}
-                      </ng-template>
+                      <ng-template #byear>{{ book.year }}</ng-template>
+                    </td>
+                    <td>
+                      <input
+                        class="form-control form-control-sm"
+                        type="text"
+                        *ngIf="editableBook?.isbn == book.isbn; else bprice"
+                        formControlName="price"
+                      />
+                      <ng-template #bprice>Php {{ book.price }}</ng-template>
+                    </td>
+                    <td>
+                      <input
+                        class="form-control form-control-sm"
+                        type="number"
+                        *ngIf="editableBook?.isbn == book.isbn; else bqty"
+                        formControlName="quantity"
+                      />
+                      <ng-template #bqty>{{ book.quantity }}</ng-template>
                     </td>
                     <td>
                       <button
                         type="submit"
                         class="btn btn-sm btn-warning"
-                        (click)="updateBook(book.book_id)"
-                        *ngIf="bookEditable == book.book_id; else buttons"
+                        (click)="updateBook(book?.id)"
+                        *ngIf="editableBook?.isbn == book.isbn; else buttons"
                       >
                         Done
                       </button>
@@ -259,14 +147,39 @@
                           class="btn btn-sm btn-warning me-1"
                           (click)="setBookEditable(book)"
                         >
-                          Edit
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            class="bi bi-pencil"
+                            viewBox="0 0 16 16"
+                          >
+                            <path
+                              d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"
+                            />
+                          </svg>
                         </button>
                         <button
                           type="button"
                           class="btn btn-sm btn-danger"
-                          (click)="deleteBook(book.book_id)"
+                          (click)="deleteBook(book)"
                         >
-                          Del
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            class="bi bi-trash"
+                            viewBox="0 0 16 16"
+                          >
+                            <path
+                              d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"
+                            />
+                            <path
+                              d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"
+                            />
+                          </svg>
                         </button>
                       </ng-template>
                     </td>
@@ -275,8 +188,111 @@
               </table>
             </div>
           </div>
+
+          <div class="d-flex justify-content-end p-1 bg-primary">
+            <div class="d-flex gap-3 text-light align-items-center">
+              <span class="text-nowrap"> Items per page: </span>
+              <select
+                class="form-select form-select-sm"
+                (input)="pageSelect($event)"
+              >
+                <option [value]="c" *ngFor="let c of [20, 50, 100, 500, 1000]">
+                  {{ c }}
+                </option>
+              </select>
+              <span class="text-nowrap">
+                {{ pagination.from }} - {{ pagination.to }} of
+                {{ pagination.total }}
+              </span>
+              <div class="btn-group">
+                <button
+                  class="btn btn-sm btn-outline-light"
+                  (click)="prevPage()"
+                  [disabled]="pagination.current_page <= 1"
+                >
+                  &laquo;
+                </button>
+                <button
+                  class="btn btn-sm btn-outline-light"
+                  (click)="nextPage()"
+                  [disabled]="pagination.current_page >= pagination.last_page"
+                >
+                  &raquo;
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </main>
+    </div>
+  </div>
+</div>
+
+<!-- Add book modal -->
+<div
+  class="modal fade"
+  id="add-book-modal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add book</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form
+          id="add-book-form"
+          [formGroup]="addBookForm"
+          class="row row-cols-1 g-2"
+          (submit)="onSubmit()"
+        >
+          <div class="col">
+            <label for="">Name</label>
+            <input type="text" class="form-control" formControlName="name" />
+          </div>
+          <div class="col">
+            <label for="">Author</label>
+            <input type="text" class="form-control" formControlName="author" />
+          </div>
+          <div class="col">
+            <label for="">Year</label>
+            <input type="number" class="form-control" formControlName="year" />
+          </div>
+          <div class="col">
+            <label for="">Price</label>
+            <input type="number" class="form-control" formControlName="price" />
+          </div>
+          <div class="col">
+            <label for="">Quantity</label>
+            <input
+              type="number"
+              class="form-control"
+              formControlName="quantity"
+            />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          form="add-book-form"
+          data-bs-dismiss="modal"
+        >
+          Save changes
+        </button>
+      </div>
     </div>
   </div>
 </div>
