@@ -57,6 +57,10 @@ Route::get('/books', function (Request $request) {
     }
 });
 
+Route::get('/users', function () {
+    return User::all();
+});
+
 Route::post('/books/add', function (Request $request) {
     $input = $request->validate([
         'name' => 'required',
@@ -71,8 +75,9 @@ Route::post('/books/add', function (Request $request) {
     Book::create($input);
 });
 
-Route::delete('/books/{book}/delete', function (String $book_id) {
-    Book::where('book_id', $book_id)->delete();
+Route::delete('/books/{book}/delete', function (Book $book) {
+    error_log(json_encode($book));
+    $book->delete();
 });
 
 Route::put('/books/{book}/update', function (Request $request, Book $book) {

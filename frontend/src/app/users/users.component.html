@@ -1,0 +1,146 @@
+<style>
+  #top-nav {
+    background-color: #0148c6;
+  }
+
+  #side-nav {
+    background-color: #021728;
+    min-width: 300px;
+    max-width: 300px;
+  }
+
+  #toolbar {
+    background-color: #334360;
+  }
+
+  #book-links {
+    background-color: #021728;
+  }
+
+  #book-links > a.active {
+    background-color: #367eb8;
+  }
+</style>
+
+<div id="component" class="vh-100 d-flex flex-column overflow-hidden">
+  <nav id="top-nav" class="navbar">
+    <div class="container-fluid">
+      <a
+        class="navbar-brand text-light d-flex align-items-center gap-2"
+        href="#"
+      >
+        <img src="assets/book (3) 2.png" alt="Logo" height="36" />
+        <span class="fw-bold">Books</span>
+      </a>
+    </div>
+  </nav>
+  <div class="flex-grow-1 d-flex overflow-hidden">
+    <nav id="side-nav" class="h-100 text-light p-4 border-end border-white">
+      <div class="row mb-2">
+        <div class="col-4">
+          <img src="assets/Profile.png" class="img-fluid" />
+        </div>
+        <div class="col-8 d-flex flex-column justify-content-around">
+          <span>{{ user?.fullname }}</span>
+          <span>{{ user?.email }}</span>
+        </div>
+      </div>
+      <div class="mb-3">
+        <a routerLink="edit-profile" class="btn btn-sm btn-warning"
+          >Edit Profile</a
+        >
+      </div>
+      <app-admin-side-links />
+    </nav>
+    <div class="d-flex flex-column flex-grow-1 overflow-hidden">
+      <main class="d-grid w-100 flex-grow-1 p-2 overflow-hidden">
+        <div class="w-100 border rounded d-flex flex-column overflow-hidden">
+          <div class="flex-grow-1 overflow-auto">
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Type</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let u of users">
+                    <td>{{ u.fullname }}</td>
+                    <td>{{ u.email }}</td>
+                    <td>{{ u.type }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</div>
+
+<!-- Add book modal -->
+<div
+  class="modal fade"
+  id="add-book-modal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add book</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form id="add-book-form" class="row row-cols-1 g-2">
+          <div class="col">
+            <label for="">Name</label>
+            <input type="text" class="form-control" formControlName="name" />
+          </div>
+          <div class="col">
+            <label for="">Author</label>
+            <input type="text" class="form-control" formControlName="author" />
+          </div>
+          <div class="col">
+            <label for="">Year</label>
+            <input type="number" class="form-control" formControlName="year" />
+          </div>
+          <div class="col">
+            <label for="">Price</label>
+            <input type="number" class="form-control" formControlName="price" />
+          </div>
+          <div class="col">
+            <label for="">Quantity</label>
+            <input
+              type="number"
+              class="form-control"
+              formControlName="quantity"
+            />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          form="add-book-form"
+          data-bs-dismiss="modal"
+        >
+          Save changes
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

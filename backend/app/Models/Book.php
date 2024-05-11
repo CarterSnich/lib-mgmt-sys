@@ -13,6 +13,7 @@ class Book extends Model
         'name',
         'isbn',
         'author',
+        'year',
         'price',
         'quantity',
         'issued_date',

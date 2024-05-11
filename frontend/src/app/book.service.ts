@@ -24,6 +24,7 @@ export class BookService {
   }
 
   addBook(book: Book) {
+    console.log(book)
     const url = 'http://localhost:8000/api/books/add';
     return this.http.post(url, book);
   }

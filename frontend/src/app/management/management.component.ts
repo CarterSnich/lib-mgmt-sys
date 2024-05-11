@@ -95,15 +95,18 @@ export class ManagementComponent {
   }
 
   deleteBook(book: Book) {
-    this.bookService.deleteBook(book).subscribe({
-      complete: () => {
-        alert('Book deleted');
-        this.getBooks(this.pagination.current_page);
-      },
-      error: (err) => {
-        console.error(err);
-      },
-    });
+    if (confirm('Delete book?')) {
+      this.bookService.deleteBook(book).subscribe({
+        complete: () => {
+          alert('Book deleted');
+          this.getBooks(this.pagination.current_page);
+        },
+        error: (err) => {
+          console.error(err);
+          alert('Failed to delete book.');
+        },
+      });
+    }
   }
 
   setBookEditable(book: Book) {

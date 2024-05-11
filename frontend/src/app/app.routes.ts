@@ -5,6 +5,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { IndexComponent } from './index/index.component';
 import { ManagementComponent } from './management/management.component';
 import { TransactionsComponent } from './transactions/transactions.component';
+import { UsersComponent } from './users/users.component';
 
 export const routes: Routes = [
   {
@@ -37,6 +38,11 @@ export const routes: Routes = [
     data: {
       isReturned: 0,
     },
+  },
+  {
+    path: 'users',
+    component: UsersComponent,
+    title: 'LIBRARY MANAGEMENT SYSTEM',
   },
   {
     path: 'dashboard',
